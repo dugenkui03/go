@@ -2844,6 +2844,9 @@ func (p *parser) parseFile() *ast.File {
 				if p.tok == token.IMPORT && prev != token.IMPORT {
 					p.error(p.pos, "imports must appear before other declarations")
 				}
+				if p.tok == token.PACKAGE {
+					p.error(p.pos, "package clause must begins each source file")
+				}
 				prev = p.tok
 
 				decls = append(decls, p.parseDecl(declStart))
